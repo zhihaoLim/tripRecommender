@@ -1,22 +1,31 @@
+{% load static %}
 <html>
 <head>
     <title>여행 경로 추천 설문조사</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'TripRecommender/css/style.css' %}">
 </head>
 <body>
+
+<div class="container">
 
 <h1>여행 경로 추천 설문조사</h1>
 
 <form method="post" action="{% url 'survey' %}">
     {% csrf_token %}
 
-    <label for="age">나이:</label>
-    <input type="number" name="age" required><br>
-
     <label for="gender">성별:</label>
     <select name="gender" required>
         <option value="M">남성</option>
         <option value="F">여성</option>
-        <option value="O">기타</option>
+    </select><br>
+
+    <label for="age">연령대:</label>
+    <select name="age" required>
+        <option value="10s">10대</option>
+        <option value="20s">20대</option>
+        <option value="30s">30대</option>
+        <option value="40s">40대</option>
+        <option value="50s">50대 이상</option>
     </select><br>
 
     <label for="income">소득수준:</label>
@@ -27,12 +36,36 @@
         <option value="4">5,000만원 이상</option>
     </select><br>
 
+    <label for="sido">시/도:</label>
+    <select name="sido" required>
+        <option value="Seoul">서울</option>
+        <option value="Busan">부산</option>
+        <option value="Incheon">인천</option>
+        <!-- 다른 시/도 추가 -->
+    </select><br>
+
     <label for="travel_style">여행스타일:</label>
     <select name="travel_style" required>
         <option value="Adventure">모험</option>
         <option value="Relaxation">휴식</option>
         <option value="Cultural">문화체험</option>
         <option value="City">도시 여행</option>
+    </select><br>
+
+    <label for="travel_motive">여행 동기:</label>
+    <select name="travel_motive" required>
+        <option value="Leisure">휴식</option>
+        <option value="Exploration">탐험</option>
+        <option value="Cultural_experience">문화체험</option>
+        <!-- 다른 여행 동기 추가 -->
+    </select><br>
+
+    <label for="travel_companions_num">동반자 수:</label>
+    <select name="travel_companions_num" required>
+        <option value="Alone">혼자</option>
+        <option value="With_family">가족과</option>
+        <option value="With_friends">친구와</option>
+        <option value="Group">단체</option>
     </select><br>
 
     <input type="submit" value="제출">

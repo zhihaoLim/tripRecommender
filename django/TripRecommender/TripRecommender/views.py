@@ -3,16 +3,22 @@ from .models import Traveler
 
 def survey(request):
     if request.method == 'POST':
-        age = request.POST.get('age')
         gender = request.POST.get('gender')
-        income = request.POST.get('income')
+        age = request.POST.get('age')
+        sido = request.POST.get('sido')
         travel_style = request.POST.get('travel_style')
+        travel_motive = request.POST.get('travel_motive')
+        travel_companions_num = request.POST.get('travel_companions_num')
+        income = request.POST.get('income')
 
         Traveler.objects.create(
-            age=age,
             gender=gender,
+            age=age,
+            sido=sido,
+            travel_style=travel_style,
+            travel_motive=travel_motive,
+            travel_companions_num=travel_companions_num,
             income=income,
-            travel_style=travel_style
         )
 
         return redirect('thank_you')
