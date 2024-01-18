@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Traveler
+from django.http import HttpResponse
 
-def survey(request):
+def survey(request): #권승훈
     if request.method == 'POST':
         gender = request.POST.get('gender')
         age = request.POST.get('age')
@@ -25,8 +26,10 @@ def survey(request):
 
     return render(request, 'TripRecommender/survey.html')
 
-def thank_you(request):
+def thank_you(request): #권승훈
     return render(request, 'TripRecommender/thank_you.html')
 
 
-
+# adfasdkfjlkdasjdlkfsjassdf
+def result(request): #현승엽
+    return render(request, 'TripRecommender/result.html')
