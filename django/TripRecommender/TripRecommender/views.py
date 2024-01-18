@@ -1,25 +1,26 @@
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from .models import Traveler
 
-# view_test1
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+def survey(request):
+    if request.method == 'POST':
+        age = request.POST.get('age')
+        gender = request.POST.get('gender')
+        income = request.POST.get('income')
+        travel_style = request.POST.get('travel_style')
 
-# view_test2
-=======
+        Traveler.objects.create(
+            age=age,
+            gender=gender,
+            income=income,
+            travel_style=travel_style
+        )
+
+        return redirect('thank_you')
+
+    return render(request, 'TripRecommender/survey.html')
+
+def thank_you(request):
+    return render(request, 'TripRecommender/thank_you.html')
 
 
 
-
-
-
-
-# baik
-=======
-
-
-
-
-
-
-
-# adfasdkfjlkdasjdlkfsjassdf
