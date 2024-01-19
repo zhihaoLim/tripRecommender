@@ -27,6 +27,19 @@ class Traveler(models.Model):
         ('10', '10'),     
     ]
 
+    TRAVEL_MISSION = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+        ('8', '8'),
+        ('9', '9'),
+        ('10', '10'),  
+    ]
+
     TRAVEL_STYLE_1 = [
         ('1', '1'),
         ('2', '2'),
@@ -140,6 +153,7 @@ class Traveler(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     age = models.IntegerField(choices=AGE_CHOICES)
     income = models.IntegerField(choices=INCOME_CHOICES)
+    travel_mission_priority = models.IntegerField(choices=TRAVEL_MISSION, default=0)
     travel_style_1 = models.IntegerField(choices=TRAVEL_STYLE_1)
     travel_style_2 = models.IntegerField(choices=TRAVEL_STYLE_2)
     travel_style_3 = models.IntegerField(choices=TRAVEL_STYLE_3)
@@ -154,3 +168,13 @@ class Traveler(models.Model):
 
     def __str__(self):
         return f"{self.get_gender_display()} - {self.get_age_display()} - {self.get_travel_style_1_display()} - {self.get_income_display()} - {self.get_travel_style_2_display()} - {self.get_travel_style_3_display()} - {self.get_travel_style_4_display()} - {self.get_travel_style_5_display()} - {self.get_travel_style_6_display()} - {self.get_travel_style_7_display()} - {self.get_travel_style_8_display()} - {self.get_travel_motive_display()} - {self.get_travel_num_display()} - {self.get_travel_companions_num_display()}"
+    
+    
+
+class TouristSpot(models.Model): # 임지호
+    visit_area_name = models.CharField(max_length=100)
+    xcoord = models.FloatField()
+    ycoord = models.FloatField()
+
+    def __str__(self):
+        return f"{self.visit_area_name - self.xcoord,self.ycoord}"
