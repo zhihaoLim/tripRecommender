@@ -2,54 +2,155 @@ from django.db import models
 
 class Traveler(models.Model):
     GENDER_CHOICES = [
-        ('Male', '남성'),
-        ('Female', '여성'),
+        ('남', '남'),
+        ('여', '여'),
     ]
 
     AGE_CHOICES = [
-        ('10s', '10대'),
-        ('20s', '20대'),
-        ('30s', '30대'),
-        ('40s', '40대'),
-        ('50s', '50대 이상'),
+        ('1', '20'),
+        ('2', '30'),
+        ('3', '40'),
+        ('4', '50'),
+        ('5', '60'),
+    ]
+    
+    INCOME_CHOICES = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+        ('8', '8'),
+        ('9', '9'),
+        ('10', '10'),     
     ]
 
-    SIDO_CHOICES = [
-        ('Seoul', '서울'),
-        ('Busan', '부산'),
-        ('Incheon', '인천'),
-        # 다른 시/도 추가
+    TRAVEL_STYLE_1 = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
     ]
-
-    TRAVEL_STYLE_CHOICES = [
-        ('Adventure', '모험'),
-        ('Relaxation', '휴식'),
-        ('Cultural', '문화체험'),
-        ('City', '도시 여행'),
-        # 다른 여행 스타일 추가
+    
+    TRAVEL_STYLE_2 = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
     ]
-
+      
+    TRAVEL_STYLE_3 = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+    ]
+    
+    TRAVEL_STYLE_4 = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+    ]
+    
+    TRAVEL_STYLE_5 = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+    ]
+    
+    TRAVEL_STYLE_6 = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+    ]
+    
+    TRAVEL_STYLE_7 = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+    ]
+    
+    TRAVEL_STYLE_8 = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+    ]
+    
     TRAVEL_MOTIVE_CHOICES = [
-        ('Leisure', '휴식'),
-        ('Exploration', '탐험'),
-        ('Cultural_experience', '문화체험'),
-        # 다른 여행 동기 추가
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+        ('8', '8'),
+        ('9', '9'),
+        ('10', '10'),
+    ]
+
+    TRAVEL_NUM_CHOICES = [
+        ('1', '1회'),
+        ('2', '2회'),
+        ('3', '3회'),
+        ('4', '4회'),
+        ('5', '5회 이상'),
     ]
 
     TRAVEL_COMPANIONS_NUM_CHOICES = [
-        ('Alone', '혼자'),
-        ('With_family', '가족과'),
-        ('With_friends', '친구와'),
-        ('Group', '단체'),
+        ('0', '0명'),
+        ('1', '1명'),
+        ('2', '2명'),
+        ('3', '3명'),
+        ('4', '4명'),
+        ('5', '5명이상'),
     ]
 
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
-    age = models.CharField(max_length=10, choices=AGE_CHOICES)
-    income = models.DecimalField(max_digits=10, decimal_places=2)
-    sido = models.CharField(max_length=20, choices=SIDO_CHOICES)
-    travel_style = models.CharField(max_length=20, choices=TRAVEL_STYLE_CHOICES)
-    travel_motive = models.CharField(max_length=50, choices=TRAVEL_MOTIVE_CHOICES)
+    age = models.IntegerField(choices=AGE_CHOICES)
+    income = models.IntegerField(choices=INCOME_CHOICES)
+    travel_style_1 = models.IntegerField(choices=TRAVEL_STYLE_1)
+    travel_style_2 = models.IntegerField(choices=TRAVEL_STYLE_2)
+    travel_style_3 = models.IntegerField(choices=TRAVEL_STYLE_3)
+    travel_style_4 = models.IntegerField(choices=TRAVEL_STYLE_4)
+    travel_style_5 = models.IntegerField(choices=TRAVEL_STYLE_5)
+    travel_style_6 = models.IntegerField(choices=TRAVEL_STYLE_6)
+    travel_style_7 = models.IntegerField(choices=TRAVEL_STYLE_7)
+    travel_style_8 = models.IntegerField(choices=TRAVEL_STYLE_8)
+    travel_motive = models.IntegerField(choices=TRAVEL_MOTIVE_CHOICES)
+    travel_num = models.CharField(max_length=50, choices=TRAVEL_NUM_CHOICES)
     travel_companions_num = models.CharField(max_length=20, choices=TRAVEL_COMPANIONS_NUM_CHOICES) 
 
     def __str__(self):
-        return f"{self.get_gender_display()} - {self.get_age_grp_display()} - {self.get_sido_display()} - {self.get_travel_style_display()} - {self.get_travel_motive_display()} - {self.get_travel_companions_num_display()}"
+        return f"{self.get_gender_display()} - {self.get_age_display()} - {self.get_travel_style_1_display()} - {self.get_income_display()} - {self.get_travel_style_2_display()} - {self.get_travel_style_3_display()} - {self.get_travel_style_4_display()} - {self.get_travel_style_5_display()} - {self.get_travel_style_6_display()} - {self.get_travel_style_7_display()} - {self.get_travel_style_8_display()} - {self.get_travel_motive_display()} - {self.get_travel_num_display()} - {self.get_travel_companions_num_display()}"
