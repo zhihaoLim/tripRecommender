@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>제주도에 있는 10개의 마커</title>
+    <title>추천 결과</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <style>
@@ -17,6 +17,9 @@
     </style>
 </head>
 <body>
+{% for place in places %}
+{{place.visit_area_name}}
+{% endfor %}
 <div id="map" style="width:100%;height:550px;"></div>
 <p>
     <em>지도를 마우스로 클릭하면 선 그리기가 시작되고<br>오른쪽 마우스를 클릭하면 선 그리기가 종료됩니다</em>
@@ -25,8 +28,8 @@
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new kakao.maps.LatLng(33.4601, 126.9425), // 지도의 중심좌표
-        level: 5 // 지도의 확대 레벨
+        center: new kakao.maps.LatLng(33.3872, 126.5448), // 지도의 중심좌표
+        level: 10 // 지도의 확대 레벨
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -39,46 +42,14 @@ var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지�
 
 // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 var positions = [
+{% for place in places %}
     {
-        content: '<div>성산일출봉</div>', 
-        latlng: new kakao.maps.LatLng(33.4591, 126.9405)
+        content: '<div>{{place.visit_area_name}}<br><a href="https://map.kakao.com/link/map/{{place.visit_area_name}},{{place.ycoord}},{{place.xcoord}}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/{{place.visit_area_name}},{{place.ycoord}},{{place.xcoord}}" style="color:blue" target="_blank">길찾기</a></div>', 
+        latlng: new kakao.maps.LatLng({{place.ycoord}}, {{place.xcoord}})
     },
-    {
-        content: '<div>검멀레해변</div>', 
-        latlng: new kakao.maps.LatLng(33.4971, 126.9669)
-    },
-    {
-        content: '<div>브라운스위트제주 호텔</div>', 
-        latlng: new kakao.maps.LatLng(33.4520, 126.9144)
-    },
-    {
-        content: '<div>신양섭지해수욕장</div>',
-        latlng: new kakao.maps.LatLng(33.4351, 126.9234)
-    },
-    {
-        content: '<div>훈데르트힐즈</div>',
-        latlng: new kakao.maps.LatLng(33.4941, 126.9551)
-    },
-    {
-        content: '<div>아쿠아플라넷 재주</div>',
-        latlng: new kakao.maps.LatLng(33.4330, 126.9278)
-    },
-    {
-        content: '<div>산도롱맨도롱</div>',
-        latlng: new kakao.maps.LatLng(33.4968, 126.9103)
-    },
-    {
-        content: '<div>훈데르트윈즈</div>',
-        latlng: new kakao.maps.LatLng(33.4920, 126.9552)
-    },
-    {
-        content: '<div>하우목동항</div>',
-        latlng: new kakao.maps.LatLng(33.5094, 126.9429)
-    },
-    {
-        content: '<div>지미스</div>',
-        latlng: new kakao.maps.LatLng(33.4976, 126.9677)
-    }
+
+{% endfor %}
+   
 ];
 
 for (var i = 0; i < positions.length; i ++) {
@@ -93,11 +64,11 @@ for (var i = 0; i < positions.length; i ++) {
         content: positions[i].content // 인포윈도우에 표시할 내용
     });
 
+    infowindow.open(map,marker)
+
     // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
     // 이벤트 리스너로는 클로저를 만들어 등록합니다 
     // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 }
 
 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -407,14 +378,17 @@ return content;
     function addDestination(day) {
         var destinationSelectHtml = '<select class="destination-select">';
         destinationSelectHtml += '<option value="">방문지 선택</option>';
-        destinationSelectHtml += '<option value="dest1">성산일출봉</option>';
-        destinationSelectHtml += '<option value="dest2">검멀레해변</option>';
-        // 추가 여행지 옵션...
+
+        {% for place in places %}
+        destinationSelectHtml += '<option value="{{ place.visit_area_nm }}">{{ place.visit_area_nm }}</option>';
+        {% endfor %}
+
         destinationSelectHtml += '</select>';
 
         $('#day-' + day).append(destinationSelectHtml);
     }
 </script>
+
 
 </body>
 </html>

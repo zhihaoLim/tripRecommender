@@ -8,7 +8,7 @@ class TriprecommenderConfig(AppConfig): #백헌하
     name = "TripRecommender"
     verbose_name='TripRecommender_App'
 
-    model_path = os.path.join(os.path.dirname(__file__),'model/catboost_model.pkl')
+    model_path = os.path.join(os.path.dirname(__file__),'catboost_model.pkl')
     model = None
     
     def ready(self):
