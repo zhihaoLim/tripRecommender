@@ -1,8 +1,47 @@
-{% load static %}
 <html>
 <head>
     <title>여행 경로 추천 설문조사</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'TripRecommender/css/style.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: grid;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: rebeccapurple;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -15,57 +54,152 @@
 
     <label for="gender">성별:</label>
     <select name="gender" required>
-        <option value="M">남성</option>
-        <option value="F">여성</option>
+        <option value="남">남</option>
+        <option value="여">여</option>
     </select><br>
 
     <label for="age">연령대:</label>
     <select name="age" required>
-        <option value="10s">10대</option>
-        <option value="20s">20대</option>
-        <option value="30s">30대</option>
-        <option value="40s">40대</option>
-        <option value="50s">50대 이상</option>
+        <option value="1">20</option>
+        <option value="2">30</option>
+        <option value="3">40</option>
+        <option value="4">50</option>
+        <option value="5">60</option>
     </select><br>
 
     <label for="income">소득수준:</label>
     <select name="income" required>
-        <option value="1">1,000만원 미만</option>
-        <option value="2">1,000만원 - 3,000만원</option>
-        <option value="3">3,000만원 - 5,000만원</option>
-        <option value="4">5,000만원 이상</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
     </select><br>
 
-    <label for="sido">시/도:</label>
-    <select name="sido" required>
-        <option value="Seoul">서울</option>
-        <option value="Busan">부산</option>
-        <option value="Incheon">인천</option>
-        <!-- 다른 시/도 추가 -->
+    <label for="travel_style_1">여행스타일1:</label>
+    <select name="travel_style_1" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
     </select><br>
 
-    <label for="travel_style">여행스타일:</label>
-    <select name="travel_style" required>
-        <option value="Adventure">모험</option>
-        <option value="Relaxation">휴식</option>
-        <option value="Cultural">문화체험</option>
-        <option value="City">도시 여행</option>
+    <label for="travel_style_2">여행스타일2:</label>
+    <select name="travel_style_2" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select><br>
+
+    <label for="travel_style_3">여행스타일3:</label>
+    <select name="travel_style_3" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select><br>
+
+    <label for="travel_style_4">여행스타일4:</label>
+    <select name="travel_style_4" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select><br>
+
+    <label for="travel_style_5">여행스타일5:</label>
+    <select name="travel_style_5" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select><br>
+
+    <label for="travel_style_6">여행스타일6:</label>
+    <select name="travel_style_6" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select><br>
+
+    <label for="travel_style_7">여행스타일7:</label>
+    <select name="travel_style_7" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select><br>
+
+    <label for="travel_style_8">여행스타일8:</label>
+    <select name="travel_style_8" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
     </select><br>
 
     <label for="travel_motive">여행 동기:</label>
     <select name="travel_motive" required>
-        <option value="Leisure">휴식</option>
-        <option value="Exploration">탐험</option>
-        <option value="Cultural_experience">문화체험</option>
-        <!-- 다른 여행 동기 추가 -->
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select><br>
+
+    <label for="travel_num">여행 빈도:</label>
+    <select name="travel_num" required>
+        <option value="1">1회</option>
+        <option value="2">2회</option>
+        <option value="3">3회</option>
+        <option value="4">4회</option>
+        <option value="5">5회 이상</option>
     </select><br>
 
     <label for="travel_companions_num">동반자 수:</label>
     <select name="travel_companions_num" required>
-        <option value="Alone">혼자</option>
-        <option value="With_family">가족과</option>
-        <option value="With_friends">친구와</option>
-        <option value="Group">단체</option>
+        <option value="0">0명</option>
+        <option value="1">1명</option>
+        <option value="2">2명</option>
+        <option value="3">3명</option>
+        <option value="4">4명</option>
+        <option value="5">5명 이상</option>
     </select><br>
 
     <input type="submit" value="제출">
