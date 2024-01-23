@@ -1,5 +1,8 @@
+{% load static %}
+
 <html>
 <head>
+    <link rel="stylesheet" href="{% static 'css/survey.css' %}">
     <title>여행 경로 추천 설문조사</title>
     <style>
         body {
@@ -10,7 +13,7 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 70%;
             margin: 0 auto;
             padding: 20px;
             background-color: white;
@@ -47,25 +50,49 @@
 
 <div class="container">
 
-<h1>여행 경로 추천 설문조사</h1>
+<h1 style='text-align:center;'>여행 경로 추천 설문조사</h1>
 
 <form method="post" action="{% url 'survey' %}">
     {% csrf_token %}
 
-    <label for="gender">성별:</label>
-    <select name="gender" required>
-        <option value="남">남</option>
-        <option value="여">여</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">성별을 선택해주세요</p>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="gender" value="남">
+                <span class="button button-2">남</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="gender" value="여">
+                <span class="button button-2">여</span>
+        </div>
+    </div>
 
-    <label for="age">연령대:</label>
-    <select name="age" required>
-        <option value="1">20</option>
-        <option value="2">30</option>
-        <option value="3">40</option>
-        <option value="4">50</option>
-        <option value="5">60</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">연령대를 선택해주세요</p>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="age" value="1">
+                <span class="button button-6">20대</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="age" value="2">
+                <span class="button button-6">30대</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="age" value="3">
+                <span class="button button-6">40대</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="age" value="4">
+                <span class="button button-6">50대</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="age" value="5">
+                <span class="button button-6">60대 이상</span>
+            </label>
+        </div>
+    </div>
 
     <label for="income">소득수준:</label>
     <select name="income" required>
@@ -95,93 +122,339 @@
         <option value="10">10</option>
     </select><br>
 
-    <label for="travel_style_1">여행스타일1:</label>
-    <select name="travel_style_1" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">이번 여행에서 가장 중요한 한 가지는?</p>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="travel_mission" value="1">
+                <span class="button button-3">쇼핑</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="2">
+                <span class="button button-3">테마파크</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="3">
+                <span class="button button-3">역사 유적지</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="4">
+                <span class="button button-3">시티 투어</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="5">
+                <span class="button button-3">레포츠 활동</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="6">
+                <span class="button button-3">예술 관람</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="7">
+                <span class="button button-3">유흥과 오락</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="8">
+                <span class="button button-3">캠핑</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="9">
+                <span class="button button-3">축제와 행사</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="10">
+                <span class="button button-3">스파와 온천</span>
+            </label>
+        </div>
+    </div>
 
-    <label for="travel_style_2">여행스타일2:</label>
-    <select name="travel_style_2" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">아름답고 조용한 자연 vs 맛집 많고 번화한 도시</p>
+        <div class="response-options">
+            <label class="edge-label">자연</label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">도시</label>
+        </div>
+    </div>
 
-    <label for="travel_style_3">여행스타일3:</label>
-    <select name="travel_style_3" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">숙박 스타일(삭제 예정)</p>
+        <div class="response-options">
+            <label class="edge-label">숙박</label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">당일</label>
+        </div>
+    </div>
 
-    <label for="travel_style_4">여행스타일4:</label>
-    <select name="travel_style_4" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">가본 적 없는 새로운 곳 vs 내게 익숙한 바로 그 곳</p>
+        <div class="response-options">
+            <label class="edge-label">새로운</label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">익숙한</label>
+        </div>
+    </div>
 
-    <label for="travel_style_5">여행스타일5:</label>
-    <select name="travel_style_5" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">숙박 스타일(삭제 예정)</p>
+        <div class="response-options">
+            <label class="edge-label">저렴한</label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">편안한</label>
+        </div>
+    </div>
 
-    <label for="travel_style_6">여행스타일6:</label>
-    <select name="travel_style_6" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">편안한 휴식을 주는 여행 vs 다양한 체험이 있는 여행</p>
+        <div class="response-options">
+            <label class="edge-label">휴식</label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">체험</label>
+        </div>
+    </div>
 
-    <label for="travel_style_7">여행스타일7:</label>
-    <select name="travel_style_7" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">잘 알려지지 않은 곳으로 vs 잘 알려진 핫 스페이스로</p>
+        <div class="response-options">
+            <label class="edge-label">모르는</label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">알려진</label>
+        </div>
+    </div>
 
-    <label for="travel_style_8">여행스타일8:</label>
-    <select name="travel_style_8" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">계획을 따르는 만족스런 여행 vs 상황을 따르는 자유로운 여행</p>
+        <div class="response-options">
+            <label class="edge-label">계획</label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">상황</label>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <p class="question">사진보다는 경험이 우선 vs 사진을 남기는 것이 우선</p>
+        <div class="response-options">
+            <label class="edge-label">경험</label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">사진</label>
+        </div>
+    </div>
 
     <label for="travel_motive">여행 동기:</label>
     <select name="travel_motive" required>
@@ -218,7 +491,7 @@
 
     <input type="submit" value="제출">
 </form>
-
+<script src="{% static 'js/survey.js' %}"></script>
 </body>
 </html>
 
