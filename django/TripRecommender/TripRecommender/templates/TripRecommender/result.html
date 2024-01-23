@@ -50,7 +50,7 @@
         <div class="header">당신을 위한 추천 방문지</div>
 
         {% for place in places %}
-        <li>{{ place.visit_area_name }}</li>
+        <li>{{ place.visit_area_name }}({{ place.ycoord }},{{ place.xcoord }})</li>
         {% endfor %}
     </div>
 
