@@ -8,7 +8,7 @@ def survey(request): #권승훈
     if request.method == 'POST':
         gender = request.POST.get('gender')
         age = request.POST.get('age')
-        income = request.POST.get('income')
+        # income = request.POST.get('income')
         travel_mission = request.POST.get('travel_mission')
         travel_style_1 = request.POST.get('travel_style_1')
         travel_style_2 = request.POST.get('travel_style_2')
@@ -25,7 +25,6 @@ def survey(request): #권승훈
         traveler = Traveler.objects.create(
             gender=gender,
             age=age,
-            income=income,
             travel_style_1=travel_style_1,
             travel_style_2=travel_style_2,
             travel_style_3=travel_style_3,
