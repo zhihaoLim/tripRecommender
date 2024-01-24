@@ -3,6 +3,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="{% static 'css/survey.css' %}">
+    <style>
     <title>여행 경로 추천 설문조사</title>
     <style>
         body {
@@ -13,7 +14,7 @@
         }
 
         .container {
-            max-width: 70%;
+            max-width: 100%;
             margin: 0 auto;
             padding: 20px;
             background-color: white;
@@ -30,20 +31,21 @@
             font-weight: bold;
         }
 
-        select, input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid black;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-top: 5px;
-        }
+
 
         input[type="submit"] {
+            width: 30%;
+            padding: 10px;
+            margin: 0 auto;            
             background-color: rebeccapurple;
             color: white;
             cursor: pointer;
         }
+
+        .question-container {
+            text-align: center;
+        }
+        
     </style>
 </head>
 <body>
@@ -60,11 +62,11 @@
         <div class="response-options">
             <label class="option">
                 <input type="radio" name="gender" value="남">
-                <span class="button button-2">남</span>
+                <span class="button button-8">남</span>
             </label>
             <label class="option">
                 <input type="radio" name="gender" value="여">
-                <span class="button button-2">여</span>
+                <span class="button button-8">여</span>
         </div>
     </div>
 
@@ -73,98 +75,113 @@
         <div class="response-options">
             <label class="option">
                 <input type="radio" name="age" value="1">
-                <span class="button button-6">20대</span>
+                <span class="button button-9">20대</span>
             </label>
             <label class="option">
                 <input type="radio" name="age" value="2">
-                <span class="button button-6">30대</span>
+                <span class="button button-9">30대</span>
             </label>
             <label class="option">
                 <input type="radio" name="age" value="3">
-                <span class="button button-6">40대</span>
+                <span class="button button-9">40대</span>
             </label>
             <label class="option">
                 <input type="radio" name="age" value="4">
-                <span class="button button-6">50대</span>
+                <span class="button button-9">50대</span>
             </label>
             <label class="option">
                 <input type="radio" name="age" value="5">
-                <span class="button button-6">60대 이상</span>
+                <span class="button button-9">60대 이상</span>
             </label>
         </div>
     </div>
 
-    <label for="income">소득수준:</label>
-    <select name="income" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-    </select><br>
-
-    <label for="travel_mission">여행미션:</label>
-    <select name="travel_mission" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">여행 경비</p>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="payment" value="0">
+                <span class="button button-8">60만원이하</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="payment" value="1">
+                <span class="button button-8">60만원이상</span>
+        </div>
+    </div>
 
     <div class="question-container">
         <p class="question">이번 여행에서 가장 중요한 한 가지는?</p>
         <div class="response-options">
-            <label class="option">
-                <input type="radio" name="travel_mission" value="1">
-                <span class="button button-3">쇼핑</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="travel_mission" value="2">
-                <span class="button button-3">테마파크</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="travel_mission" value="3">
-                <span class="button button-3">역사 유적지</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="travel_mission" value="4">
-                <span class="button button-3">시티 투어</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="travel_mission" value="5">
-                <span class="button button-3">레포츠 활동</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="travel_mission" value="6">
-                <span class="button button-3">예술 관람</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="travel_mission" value="7">
-                <span class="button button-3">유흥과 오락</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="travel_mission" value="8">
-                <span class="button button-3">캠핑</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="travel_mission" value="9">
-                <span class="button button-3">축제와 행사</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="travel_mission" value="10">
-                <span class="button button-3">스파와 온천</span>
-            </label>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="1">
+                    <span class="button button-8">쇼핑</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="2">
+                    <span class="button button-8">테마파크</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="3">
+                    <span class="button button-8">역사 유적지</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="4">
+                    <span class="button button-8">시티 투어</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="5">
+                    <span class="button button-8">레포츠 활동</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="6">
+                    <span class="button button-8">예술 관람</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="7">
+                    <span class="button button-8">유흥과 오락</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="8">
+                    <span class="button button-8">캠핑</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="9">
+                    <span class="button button-8">축제와 행사</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="10">
+                    <span class="button button-8">스파와 온천</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="12">
+                    <span class="button button-8">드라마 촬영지</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="22">
+                    <span class="button button-8">SNS 인생샷</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="23">
+                    <span class="button button-8">호캉스</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="25">
+                    <span class="button button-8">반려동물 동반</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="28">
+                    <span class="button button-8">등반</span>
+                </label>
+            </div>
         </div>
     </div>
 
@@ -456,38 +473,103 @@
         </div>
     </div>
 
-    <label for="travel_motive">여행 동기:</label>
-    <select name="travel_motive" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">여행 동기</p>
+        <div class="response-options">
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="1">
+                    <span class="button button-8">일상 탈출</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="2">
+                    <span class="button button-8">휴식</span>
+                </label>
+            </div>
+                <div class="option-row">
+                    <label class="option">
+                        <input type="radio" name="travel_mission" value="3">
+                        <span class="button button-8">우정 여행</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="travel_mission" value="4">
+                        <span class="button button-8">자아 찾기</span>
+                    </label>
+                </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="5">
+                    <span class="button button-8">SNS</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="6">
+                    <span class="button button-8">건강 증진</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="7">
+                    <span class="button button-8">새로운 경험</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="8">
+                    <span class="button button-8">교육</span>
+                </label>
+            </div>
+        </div>
+    </div>
 
-    <label for="travel_num">여행 빈도:</label>
-    <select name="travel_num" required>
-        <option value="1">1회</option>
-        <option value="2">2회</option>
-        <option value="3">3회</option>
-        <option value="4">4회</option>
-        <option value="5">5회 이상</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">여행 빈도</p>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="travel_mission" value="1">
+                <span class="button button-8">1회</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="2">
+                <span class="button button-8">2회</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="3">
+                <span class="button button-8">3회</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="4">
+                <span class="button button-8">4회</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="5">
+                <span class="button button-8">5회 이상</span>
+            </label>
+        </div>
+    </div>
 
-    <label for="travel_companions_num">동반자 수:</label>
-    <select name="travel_companions_num" required>
-        <option value="0">0명</option>
-        <option value="1">1명</option>
-        <option value="2">2명</option>
-        <option value="3">3명</option>
-        <option value="4">4명</option>
-        <option value="5">5명 이상</option>
-    </select><br>
+    <div class="question-container">
+        <p class="question">동반자 수</p>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="travel_mission" value="1">
+                <span class="button button-8">1명</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="2">
+                <span class="button button-8">2명</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="3">
+                <span class="button button-8">3명</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="4">
+                <span class="button button-8">4명</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_mission" value="5">
+                <span class="button button-8">5명 이상</span>
+            </label>
+        </div>
+    </div>
 
     <input type="submit" value="제출">
 </form>

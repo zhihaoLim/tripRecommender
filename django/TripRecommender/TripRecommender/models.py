@@ -14,18 +14,18 @@ class Traveler(models.Model):
         ('5', '60'),
     ]
     
-    INCOME_CHOICES = [
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5'),
-        ('6', '6'),
-        ('7', '7'),
-        ('8', '8'),
-        ('9', '9'),
-        ('10', '10'),     
-    ]
+    # INCOME_CHOICES = [
+    #     ('1', '1'),
+    #     ('2', '2'),
+    #     ('3', '3'),
+    #     ('4', '4'),
+    #     ('5', '5'),
+    #     ('6', '6'),
+    #     ('7', '7'),
+    #     ('8', '8'),
+    #     ('9', '9'),
+    #     ('10', '10'),     
+    # ]
 
     TRAVEL_MISSION = [
         ('1', '1'),
@@ -152,7 +152,6 @@ class Traveler(models.Model):
 
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     age = models.IntegerField(choices=AGE_CHOICES)
-    income = models.IntegerField(choices=INCOME_CHOICES)
     travel_mission_priority = models.IntegerField(choices=TRAVEL_MISSION, default=0)
     travel_style_1 = models.IntegerField(choices=TRAVEL_STYLE_1)
     travel_style_2 = models.IntegerField(choices=TRAVEL_STYLE_2)
