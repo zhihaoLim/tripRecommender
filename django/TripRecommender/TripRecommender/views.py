@@ -3,6 +3,22 @@ from .models import Traveler, TouristSpot
 from django.http import HttpResponse
 from django.apps import apps
 import pandas as pd
+from django.apps import apps
+
+#catboost_model = apps.get_app_config('TripRecommender').catboost_model
+#random_forest_model = apps.get_app_config('TripRecommender').rf_model
+
+def conv_income(age,payment):
+    random_forest_model = apps.get_app_config('TripRecommender').rf_model
+    input_var = pd.DataFrame(columns=['AGE_GRP','ALL_PAYMENT_AMT_WON_mean_sep'])
+    input_var['AGE_GRP'] = [age]
+    input_var['ALL_PAYMENT_AMT_WON_mean_sep'] = [payment]
+    print("age:", age)
+    print("payment:", payment)
+    print("DataFrame:")
+    print(input_var)
+
+    return random_forest_model.predict(input_var)
 
 def survey(request): #권승훈
     if request.method == 'POST':
@@ -25,6 +41,8 @@ def survey(request): #권승훈
         traveler = Traveler.objects.create(
             gender=gender,
             age=age,
+            income=conv_income(age,1),
+            travel_mission_priority=travel_mission,
             travel_style_1=travel_style_1,
             travel_style_2=travel_style_2,
             travel_style_3=travel_style_3,
@@ -91,9 +109,9 @@ def recommend_places(traveler,model): #백헌하
 
 
 def recommend(request, traveler_id): #백헌하
-    model = apps.get_app_config('TripRecommender').model
+    catboost_model = apps.get_app_config('TripRecommender').catboost_model
     traveler = Traveler.objects.get(id=traveler_id)
-    recommended_places = recommend_places(traveler,model)
+    recommended_places = recommend_places(traveler,catboost_model)
     
     # 추천된 장소 목록을 세션에 저장
     request.session['recommended_places'] = recommended_places
