@@ -1,1 +1,1 @@
-default_app_config = 'TripRecommender.apps.TriprecommenderConfig'#백헌하
+default_app_config = 'TripRecommender.apps.TripRecommenderConfig'
