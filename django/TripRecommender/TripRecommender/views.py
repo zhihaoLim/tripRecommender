@@ -13,18 +13,16 @@ def conv_income(age,payment):
     input_var = pd.DataFrame(columns=['AGE_GRP','ALL_PAYMENT_AMT_WON_mean_sep'])
     input_var['AGE_GRP'] = [age]
     input_var['ALL_PAYMENT_AMT_WON_mean_sep'] = [payment]
-    print("age:", age)
-    print("payment:", payment)
-    print("DataFrame:")
-    print(input_var)
+
 
     return random_forest_model.predict(input_var)
 
 def survey(request): #권승훈
     if request.method == 'POST':
+        print('travel_motive:',request.POST.get('travel_motive'))
         gender = request.POST.get('gender')
         age = request.POST.get('age')
-        # income = request.POST.get('income')
+        payment = request.POST.get('payment')
         travel_mission = request.POST.get('travel_mission')
         travel_style_1 = request.POST.get('travel_style_1')
         travel_style_2 = request.POST.get('travel_style_2')
@@ -41,7 +39,7 @@ def survey(request): #권승훈
         traveler = Traveler.objects.create(
             gender=gender,
             age=age,
-            income=conv_income(age,1),
+            income=conv_income(age,payment),
             travel_mission_priority=travel_mission,
             travel_style_1=travel_style_1,
             travel_style_2=travel_style_2,
@@ -123,6 +121,7 @@ def result(request, traveler_id):
 
     # 세션에서 추천된 장소 목록 가져오기
     recommended_places = request.session.get('recommended_places', [])
+    print(recommended_places)
 
     # TouristSpot 객체들 조회
     tourist_spots = TouristSpot.objects.filter(visit_area_name__in=recommended_places)

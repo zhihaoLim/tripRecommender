@@ -152,6 +152,7 @@ class Traveler(models.Model):
 
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     age = models.IntegerField(choices=AGE_CHOICES)
+    income = models.IntegerField()
     travel_mission_priority = models.IntegerField(choices=TRAVEL_MISSION, default=0)
     travel_style_1 = models.IntegerField(choices=TRAVEL_STYLE_1)
     travel_style_2 = models.IntegerField(choices=TRAVEL_STYLE_2)
