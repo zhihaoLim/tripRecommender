@@ -54,7 +54,7 @@
 
 <h1 style='text-align:center;'>여행 경로 추천 설문조사</h1>
 
-<form method="post" action="{% url 'survey' %}">
+<form method="post" action="{% url 'triprecommender:survey' %}">
     {% csrf_token %}
 
     <div class="question-container">
