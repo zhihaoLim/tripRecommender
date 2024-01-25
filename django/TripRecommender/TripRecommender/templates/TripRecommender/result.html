@@ -1,8 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="{% static 'css/survey.css' %}">
         <meta charset="utf-8">
         <title>추천 결과</title>
+        
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d4ec92d180013aec536b3174ee43503&libraries=services,clusterer,drawing"></script>
     
@@ -57,7 +60,12 @@
         </style>
     </head>
     <body>
-
+        <div class="topnav">
+            <a class="active" href="{% url 'triprecommender:survey'%}">Home</a>
+            <a href="#" onclick="reloadPage();">Result</a>
+            <a href="#about" class="split">Help</a>
+        </div>
+        
     <div class="left">
         <div class="header">당신을 위한 추천 방문지</div>
         {% for place in places %}
@@ -90,6 +98,9 @@
 
 
 <script>
+    function reloadPage() {
+        location.reload(true);
+    }
 
     function getCookie(name) {
         var cookieValue = null;
