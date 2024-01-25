@@ -3,7 +3,9 @@ from .models import Traveler, TouristSpot
 from django.http import HttpResponse
 from django.apps import apps
 import pandas as pd
-from django.apps import apps
+import requests
+import json
+from django.http import JsonResponse
 
 #catboost_model = apps.get_app_config('TripRecommender').catboost_model
 #random_forest_model = apps.get_app_config('TripRecommender').rf_model
@@ -53,8 +55,9 @@ def survey(request): #권승훈
             travel_num=travel_num,
             travel_companions_num=travel_companions_num,
         )
-
-        return redirect('recommend',traveler_id=traveler.id)
+        
+        request.session['traveler_id'] = traveler.id
+        return redirect('triprecommender:recommend')
 
     return render(request, 'TripRecommender/survey.html')
 
@@ -106,7 +109,8 @@ def recommend_places(traveler,model): #백헌하
     return top_10_recommendations
 
 
-def recommend(request, traveler_id): #백헌하
+def recommend(request): #백헌하
+    traveler_id = request.session.get('traveler_id')
     catboost_model = apps.get_app_config('TripRecommender').catboost_model
     traveler = Traveler.objects.get(id=traveler_id)
     recommended_places = recommend_places(traveler,catboost_model)
@@ -114,9 +118,10 @@ def recommend(request, traveler_id): #백헌하
     # 추천된 장소 목록을 세션에 저장
     request.session['recommended_places'] = recommended_places
 
-    return redirect('result', traveler_id=traveler.id)
+    return redirect('triprecommender:result')
 
-def result(request, traveler_id):
+def result(request):
+    traveler_id = request.session.get('traveler_id')
     traveler = Traveler.objects.get(id=traveler_id)
 
     # 세션에서 추천된 장소 목록 가져오기
@@ -129,7 +134,7 @@ def result(request, traveler_id):
     if request.method == 'POST':
         # Traveler 인스턴스 삭제 및 survey 페이지로 리디렉션
         traveler.delete()
-        return redirect('survey')
+        return redirect('triprecommender:survey')
     
     # 추천된 장소와 Traveler 객체 전달
     context = {
@@ -138,3 +143,21 @@ def result(request, traveler_id):
     }
 
     return render(request, 'TripRecommender/result.html', context)
+
+
+def proxy_to_kakao(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            external_url = 'https://apis-navi.kakaomobility.com/v1/waypoints/directions'
+            headers = {
+                'Authorization': 'KakaoAK 27614dd93f27629969a759981d623f4b',
+                'Content-Type': 'application/json'
+            }
+
+            response = requests.post(external_url, headers=headers, json=data)
+            response.raise_for_status()
+            print(response.json().get("routes")[0].get("result_msg"))
+            return JsonResponse(response.json())
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({'error': str(e)}, status=500)
