@@ -130,6 +130,8 @@ def result(request):
 
     # TouristSpot 객체들 조회
     tourist_spots = TouristSpot.objects.filter(visit_area_name__in=recommended_places)
+    
+    
 
     if request.method == 'POST':
         # Traveler 인스턴스 삭제 및 survey 페이지로 리디렉션
@@ -143,6 +145,8 @@ def result(request):
     }
 
     return render(request, 'TripRecommender/result.html', context)
+
+
 
 
 def proxy_to_kakao(request):
