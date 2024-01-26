@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html>      
   <head>
     <link rel="stylesheet" href="{% static 'css/survey.css' %}" />
     <meta charset="utf-8" />
@@ -79,6 +79,11 @@
     </style>
   </head>
   <body>
+  <div class="topnav">
+        <a class="active" href="{% url 'triprecommender:survey'%}">Home</a>
+        <a href="#" onclick="reloadPage();">Result</a>
+        <a href="#about" class="split">Help</a>
+   </div>
     <div class="left">
       <div class="header">당신을 위한 추천 방문지</div>
       {% for place in places %}
@@ -109,6 +114,44 @@
       <div id="itinerary"></div>
     </div>
 
+<script>
+    function reloadPage() {
+        location.reload(true);
+    }
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var mapContainer = document.getElementById('map'),
+            mapOptions = {
+                center: new kakao.maps.LatLng(33.3972, 126.5448),
+                level: 9
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOptions);
+        positions
+        var positions = [
+        {% for place in places %}
+            {
+                content: '<div>{{place.visit_area_name}}<br><a href="https://map.kakao.com/link/map/{{place.visit_area_name}},{{place.ycoord}},{{place.xcoord}}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/{{place.visit_area_name}},{{place.ycoord}},{{place.xcoord}}" style="color:blue" target="_blank">길찾기</a></div>', 
+                latlng: new kakao.maps.LatLng({{place.ycoord}}, {{place.xcoord}})
+            },
+
+        {% endfor %}
+                                               
     <div class="right">
         <div id="map"></div>
       </div>

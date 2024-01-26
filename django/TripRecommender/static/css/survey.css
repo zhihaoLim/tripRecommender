@@ -18,6 +18,7 @@
     display: flex;
     align-items: center;
     margin: 0 10px;
+    margin-bottom: 15px;
 }
 
 /* General Styles for All Buttons */
@@ -59,4 +60,42 @@ input[type="radio"] {
     /* Adjust the padding to align with the buttons */
     padding: same as button height; 
     /* Additional styling as needed */
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #44c4f3;
+    overflow: hidden;
+    position: fixed;
+    width: 100%; /* Ensures the navigation bar spans the full width of the page */
+    top: 0; /* Keeps the navigation bar at the top of the page */
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #fecda2;
+    color: white;
+}
+
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.topnav a.split {
+    float: right;
+    background-color: #04AA6D;
+    color: white;
 }

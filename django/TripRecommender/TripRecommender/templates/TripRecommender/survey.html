@@ -3,12 +3,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="{% static 'css/survey.css' %}">
-    <style>
     <title>여행 경로 추천 설문조사</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: white;
+            background-color: #fecda2;
             margin: 0;
             padding: 0;
         }
@@ -34,31 +33,60 @@
 
 
         input[type="submit"] {
-            width: 30%;
-            padding: 10px;
+            width: 20%;
+            padding: 15px 30px;
             margin: 0 auto;            
-            background-color: rebeccapurple;
+            background-color: #44c4f3;
             color: white;
             cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
         }
 
-        .question-container {
+        
+        <!--백헌하-->
+        .question-container[style="display: none;"] {
+            display: none !important;
             text-align: center;
         }
-        
+
+        #header-image {
+            width: 100%; /* Make the image span the full width of the container */
+        }
+
+        h1 {
+            position: absolute; /* Set heading to absolute position */
+            top: 50%; /* Place the heading at the vertical center of the container */
+            left: 50%; /* Place the heading at the horizontal center of the container */
+            transform: translate(-50%, -50%); /* Center the heading precisely */
+            text-align: center;
+            color: white;
+            font-size: 80px;
+            font-weight: bold;
+            z-index: 1; /* Ensure heading is above the image */
+        }
+
+
     </style>
 </head>
 <body>
+    <div class="topnav">
+        <a class="active" href="{% url 'triprecommender:survey'%}">Home</a>
+        <a href="#about" class="split">Help</a>
+    </div>
+<img id="header-image" src="{% static 'head_image_1.jpg' %}" alt="Header Image">
+        <h1>나에게 알맞는 제주도 여행지 추천!!!</h1>
 
-<div class="container">
-
-<h1 style='text-align:center;'>여행 경로 추천 설문조사</h1>
+<div class="container" style="background-color:#fecda2;">
 
 <form method="post" action="{% url 'triprecommender:survey' %}">
     {% csrf_token %}
 
+    <br>
     <div class="question-container">
-        <p class="question">성별을 선택해주세요</p>
+        <h2 class='question_head'>성별을 선택해주세요</h2>
         <div class="response-options">
             <label class="option">
                 <input type="radio" name="gender" value="남">
@@ -71,7 +99,7 @@
     </div>
 
     <div class="question-container">
-        <p class="question">연령대를 선택해주세요</p>
+        <h2 class='question_head'>연령대를 선택해주세요</h2>
         <div class="response-options">
             <label class="option">
                 <input type="radio" name="age" value="1">
@@ -97,7 +125,8 @@
     </div>
 
     <div class="question-container">
-        <p class="question">여행 경비</p>
+        <h2 class='question_head'>여행경비</h2>
+        <p class="question"> 모든 날의 1인당 여행경비 총합</p>
         <div class="response-options">
             <label class="option">
                 <input type="radio" name="payment" value="0">
@@ -108,8 +137,9 @@
                 <span class="button button-8">60만원이상</span>
         </div>
     </div>
-
+    <br>
     <div class="question-container">
+        <h2 class = 'question_head'>여행의 중요요소</h2>
         <p class="question">이번 여행에서 가장 중요한 한 가지는?</p>
         <div class="response-options">
             <div class="option-row">
@@ -184,9 +214,10 @@
             </div>
         </div>
     </div>
-
+    <br>
     <div class="question-container">
-        <p class="question">아름답고 조용한 자연 vs 맛집 많고 번화한 도시</p>
+        <h2 class = 'question_head'>여행스타일</h2>
+        <p class="question">1. 아름답고 조용한 자연 vs 맛집 많고 번화한 도시</p>
         <div class="response-options">
             <label class="edge-label">자연</label>
             <label class="option">
@@ -221,7 +252,8 @@
         </div>
     </div>
 
-    <div class="question-container">
+    <!--백헌하-->
+    <div class="question-container" style="display: none;">
         <p class="question">숙박 스타일(삭제 예정)</p>
         <div class="response-options">
             <label class="edge-label">숙박</label>
@@ -230,7 +262,7 @@
                 <span class="button button-1"></span>
             </label>
             <label class="option">
-                <input type="radio" name="travel_style_2" value="2">
+                <input type="radio" name="travel_style_2" value="2" checked>
                 <span class="button button-2"></span>
             </label>
             <label class="option">
@@ -258,7 +290,7 @@
     </div>
 
     <div class="question-container">
-        <p class="question">가본 적 없는 새로운 곳 vs 내게 익숙한 바로 그 곳</p>
+        <p class="question">2. 가본 적 없는 새로운 곳 vs 내게 익숙한 바로 그 곳</p>
         <div class="response-options">
             <label class="edge-label">새로운</label>
             <label class="option">
@@ -293,7 +325,8 @@
         </div>
     </div>
 
-    <div class="question-container">
+    <!--백헌하-->
+    <div class="question-container" style="display: none;">
         <p class="question">숙박 스타일(삭제 예정)</p>
         <div class="response-options">
             <label class="edge-label">저렴한</label>
@@ -306,7 +339,7 @@
                 <span class="button button-2"></span>
             </label>
             <label class="option">
-                <input type="radio" name="travel_style_4" value="3">
+                <input type="radio" name="travel_style_4" value="3" checked>
                 <span class="button button-3"></span>
             </label>
             <label class="option">
@@ -330,7 +363,7 @@
     </div>
 
     <div class="question-container">
-        <p class="question">편안한 휴식을 주는 여행 vs 다양한 체험이 있는 여행</p>
+        <p class="question">3. 편안한 휴식을 주는 여행 vs 다양한 체험이 있는 여행</p>
         <div class="response-options">
             <label class="edge-label">휴식</label>
             <label class="option">
@@ -366,7 +399,7 @@
     </div>
 
     <div class="question-container">
-        <p class="question">잘 알려지지 않은 곳으로 vs 잘 알려진 핫 스페이스로</p>
+        <p class="question">4. 잘 알려지지 않은 곳으로 vs 잘 알려진 핫 스페이스로</p>
         <div class="response-options">
             <label class="edge-label">모르는</label>
             <label class="option">
@@ -402,7 +435,7 @@
     </div>
 
     <div class="question-container">
-        <p class="question">계획을 따르는 만족스런 여행 vs 상황을 따르는 자유로운 여행</p>
+        <p class="question">5. 계획을 따르는 만족스런 여행 vs 상황을 따르는 자유로운 여행</p>
         <div class="response-options">
             <label class="edge-label">계획</label>
             <label class="option">
@@ -438,7 +471,7 @@
     </div>
 
     <div class="question-container">
-        <p class="question">사진보다는 경험이 우선 vs 사진을 남기는 것이 우선</p>
+        <p class="question">6. 사진보다는 경험이 우선 vs 사진을 남기는 것이 우선</p>
         <div class="response-options">
             <label class="edge-label">경험</label>
             <label class="option">
@@ -474,7 +507,7 @@
     </div>
 
     <div class="question-container">
-        <p class="question">여행 동기</p>
+        <h2 class = 'question_head'>여행 동기</h2>
         <div class="response-options">
             <div class="option-row">
                 <label class="option">
@@ -520,7 +553,8 @@
     </div>
 
     <div class="question-container">
-        <p class="question">여행 빈도</p>
+        <h2 class = 'question_head'>여행 빈도</h2>
+        <p class="question">지난 1년간 여행을 간 횟수</p>
         <div class="response-options">
             <label class="option">
                 <input type="radio" name="travel_num" value="1">
@@ -546,7 +580,7 @@
     </div>
 
     <div class="question-container">
-        <p class="question">동반자 수</p>
+        <h2 class = 'question_head'>동반자 수</h2>
         <div class="response-options">
             <label class="option">
                 <input type="radio" name="travel_companions_num" value="1">
@@ -570,10 +604,84 @@
             </label>
         </div>
     </div>
-
-    <input type="submit" value="제출">
+    <br>
+    <br>
+    <input type="submit" class="bold-button" value="여행지 및 경로 추천">
 </form>
 <script src="{% static 'js/survey.js' %}"></script>
+
+<!--백헌하-->
+<script>
+    document.querySelector("form").addEventListener("submit", function (event) {
+        // 폼 제출 시 실행되는 함수
+        console.log('working');
+
+        // 각각의 질문에 대한 선택사항들을 확인
+        var isValid = validateForm();
+
+        // 모든 항목이 선택되었는지 확인
+        if (!isValid) {
+            // 선택되지 않은 항목들의 이름을 가져옴
+            const notselected = getNotSelectedOptions();
+            
+            // 경고창을 띄우고 폼 제출을 막음
+            alert("선택되지 않은 항목이 있습니다. 다음 항목을 선택해주세요: \n" + notselected.join(', '));
+            event.preventDefault();
+        }
+    });
+
+    function validateForm() {
+        const name_lst = ['gender','age','payment','travel_mission','travel_style_1',
+        'travel_style_3','travel_style_5','travel_style_6','travel_style_7','travel_style_8',
+        'travel_motive','travel_num','travel_companions_num'];
+    
+        // 선택 옵션들을 담을 객체
+        const optionsMap = {};
+    
+        // 각 질문에 대해 선택된 옵션들을 optionsMap에 저장
+        for (const name_ of name_lst) {
+            optionsMap[name_] = document.getElementsByName(name_);
+        }
+    
+        // 모든 옵션들이 비어 있는지 확인
+        const isAnyOptionEmpty = Object.entries(optionsMap).some(([name, options]) => {
+            // 선택된 옵션이 없으면 true 반환
+            return !Array.from(options).some(option => option.checked);
+        });
+    
+        if (isAnyOptionEmpty) {
+            // 선택되지 않은 옵션이 있다면 여기에 처리 로직을 추가
+            console.log("모든 질문에 대해 선택해주세요.");
+            return false;  // 폼 제출을 막음
+        }
+    
+        // 선택된 옵션이 모두 있으면 폼을 제출
+        console.log("폼이 유효합니다. 제출할 수 있습니다.");
+        return true;
+    }
+
+    function getNotSelectedOptions() {
+        const notselected = [];
+
+        const name_lst = ['gender','age','payment','travel_mission','travel_style_1',
+        'travel_style_3','travel_style_5','travel_style_6','travel_style_7','travel_style_8',
+        'travel_motive','travel_num','travel_companions_num'];
+        const kor_name_lst = ['성별','나이','여행경비','여행 중요요소','여행스타일 1','여행스타일 2','여행스타일 3','여행스타일 4',
+        '여행스타일 5','여행스타일 6','여행 동기','여행빈도','동반자 수']
+        var i = 0;
+        // 선택되지 않은 옵션들을 확인
+        for (const name_ of name_lst) {
+            const options = document.getElementsByName(name_);
+            if (!Array.from(options).some(option => option.checked)) {
+                notselected.push(kor_name_lst[i]);
+            }
+        i = i+1;
+        }
+
+        return notselected;
+    }
+</script>
+
 </body>
 </html>
 
