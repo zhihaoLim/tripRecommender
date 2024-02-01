@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/survey.css' %}">
+    <title>Image Selection</title>
+    <style>
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-gap: 10px;
+        }
+        .image-item {
+            position: relative;
+        }
+        .image-checkbox {
+            display: none;
+        }
+        .image-label {
+            cursor: pointer;
+            display: block;
+        }
+        .image-checkbox:checked + .image-label {
+            border: 2px solid blue;
+        }
+        #submit-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+    </style>
+    <script>
+        function updateSubmitButtonState() {
+            var selectedImages = document.querySelectorAll('.image-checkbox:checked').length;
+            var submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = (selectedImages !== 5);
+        }
+    </script>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="{% url 'triprecommender:survey'%}">Home</a>
+        <a href="#about" class="split">Help</a>
+    </div>
+    <div>
+        <br><br>
+    <h1 style='text-align:center;padding:20px'>당신이 제주도에서 보고 싶은 풍경, 찍어보고 싶은 사진을 5장 골라주세요.</h1>
+    <form action="{% url 'triprecommender:selection' %}" method="post">
+        {% csrf_token %}
+        <div class="image-grid">
+            {% for image_url in images %}
+                <div class="image-item">
+                    <input type="checkbox" id="image-{{ forloop.counter }}" class="image-checkbox" name="selected_images" value="{{ image_url }}" onchange="updateSubmitButtonState()">
+                    <label for="image-{{ forloop.counter }}" class="image-label">
+                        <img src="{{ image_url }}" alt="Image {{ forloop.counter }}" style="width: 100%;">
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <input type="submit" id="submit-btn" value="제출" disabled>
+    </form>
+</div>
+    <script>
+        // 페이지 로드 시 초기 버튼 상태 업데이트
+        updateSubmitButtonState();
+    </script>
+
+</body>
+</html>
