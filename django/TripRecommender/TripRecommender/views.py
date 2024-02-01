@@ -9,6 +9,10 @@ import json
 import random
 from django.http import JsonResponse
 import urllib
+from django.conf import settings
+
+map_api = settings.MAP_API
+polyline_api = settings.POLYLINE_API
 
 #catboost_model = apps.get_app_config('TripRecommender').catboost_model
 #random_forest_model = apps.get_app_config('TripRecommender').rf_model
@@ -194,7 +198,8 @@ def result(request):
     # 추천된 장소와 Traveler 객체 전달
     context = {
         'places': tourist_spots,
-        'traveler': traveler
+        'traveler': traveler,
+        'api_key' : map_api
     }
     request.session.flush()  # 현재 세션 데이터를 초기화합니다.
 
@@ -209,7 +214,7 @@ def proxy_to_kakao(request):
             data = json.loads(request.body)
             external_url = 'https://apis-navi.kakaomobility.com/v1/waypoints/directions'
             headers = {
-                'Authorization': 'KakaoAK 27614dd93f27629969a759981d623f4b',
+                'Authorization': polyline_api,
                 'Content-Type': 'application/json'
             }
 
