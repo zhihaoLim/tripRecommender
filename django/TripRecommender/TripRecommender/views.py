@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
-from .models import Traveler, TouristSpot
-from django.http import HttpResponse
+from .models import Traveler, TouristSpot, SpotImage
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.apps import apps
 import pandas as pd
 import requests
 import json
+import random
 from django.http import JsonResponse
+import urllib
 
 #catboost_model = apps.get_app_config('TripRecommender').catboost_model
 #random_forest_model = apps.get_app_config('TripRecommender').rf_model
@@ -109,16 +112,73 @@ def recommend_places(traveler,model): #백헌하
     return top_10_recommendations
 
 
-def recommend(request): #백헌하
+def recommend(request):
     traveler_id = request.session.get('traveler_id')
     catboost_model = apps.get_app_config('TripRecommender').catboost_model
     traveler = Traveler.objects.get(id=traveler_id)
-    recommended_places = recommend_places(traveler,catboost_model)
-    
+    recommended_places = recommend_places(traveler, catboost_model)
+
     # 추천된 장소 목록을 세션에 저장
     request.session['recommended_places'] = recommended_places
 
-    return redirect('triprecommender:result')
+    # 추천된 장소와 연결된 이미지를 랜덤으로 1개씩 선택
+    images = []
+    for place in recommended_places:
+        spot_images = SpotImage.objects.filter(tourist_spot__visit_area_name=place)
+        selected_image = random.choice(list(spot_images)) if spot_images else None
+        if selected_image:
+            images.append(selected_image)
+
+    # 선택된 이미지가 30개가 되지 않으면 더 불러오기
+    while len(images) < 30:
+        additional_images = SpotImage.objects.exclude(id__in=[img.id for img in images])
+        if not additional_images:
+            break
+        images.append(random.choice(list(additional_images)))
+
+    # 세션에 이미지 정보 저장
+    request.session['selected_images'] = [image.image.url for image in images]
+
+    # selection 페이지로 리디렉션
+    return HttpResponseRedirect(reverse('triprecommender:selection'))
+
+
+def selection(request):
+    if request.method == 'POST':
+        # 사용자가 선택한 이미지 처리
+        selected_images = request.POST.getlist('selected_images')
+        
+        # 기존에 추천된 장소 목록 가져오기
+        recommended_places = request.session.get('recommended_places', [])
+        print(recommended_places)
+
+        # 선택된 이미지의 추천 장소 추가
+        for image_url in selected_images:
+            # URL에서 실제 파일명 추출 (URL 디코딩 및 '/media/' 제거)
+            image_filename = urllib.parse.unquote(image_url.replace('/media/', ''))
+
+            # image 필드가 image_filename과 일치하는 SpotImage 객체들 찾기
+            spot_images = SpotImage.objects.filter(image=image_filename)
+            
+            # 각 SpotImage의 rcmd_image에 해당하는 TouristSpot의 visit_area_name 추출 및 추가
+            for spot_image in spot_images:
+                rcmd_spot_name = SpotImage.objects.filter(image=spot_image.rcmd_image).first().tourist_spot.visit_area_name
+                if rcmd_spot_name not in recommended_places:
+                    recommended_places.append(rcmd_spot_name)
+
+        # 중복 제거 및 세션 업데이트
+        recommended_places = list(set(recommended_places))
+        request.session['recommended_places'] = recommended_places
+
+        # result 페이지로 리디렉션
+        return HttpResponseRedirect(reverse('triprecommender:result'))
+    else:
+        # 세션에서 이미지 정보 가져오기
+        images = request.session.get('selected_images', [])
+        
+        context = {'images': images}
+        return render(request, 'TripRecommender/selection.html', context)
+
 
 def result(request):
     traveler_id = request.session.get('traveler_id')
@@ -126,23 +186,17 @@ def result(request):
 
     # 세션에서 추천된 장소 목록 가져오기
     recommended_places = request.session.get('recommended_places', [])
-    print(recommended_places)
+    print('최종 result:',recommended_places)
 
     # TouristSpot 객체들 조회
     tourist_spots = TouristSpot.objects.filter(visit_area_name__in=recommended_places)
-    
-    
-
-    if request.method == 'POST':
-        # Traveler 인스턴스 삭제 및 survey 페이지로 리디렉션
-        traveler.delete()
-        return redirect('triprecommender:survey')
     
     # 추천된 장소와 Traveler 객체 전달
     context = {
         'places': tourist_spots,
         'traveler': traveler
     }
+    request.session.flush()  # 현재 세션 데이터를 초기화합니다.
 
     return render(request, 'TripRecommender/result.html', context)
 

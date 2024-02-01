@@ -175,6 +175,17 @@ class TouristSpot(models.Model): # 임지호
     visit_area_name = models.CharField(max_length=100)
     xcoord = models.FloatField()
     ycoord = models.FloatField()
-
+    main_image = models.ImageField(blank=True)
     def __str__(self):
         return f"{self.visit_area_name - self.xcoord,self.ycoord}"
+
+
+
+class SpotImage(models.Model):
+    image = models.ImageField(blank=True)
+    tourist_spot = models.ForeignKey(TouristSpot, on_delete=models.CASCADE)
+    rcmd_image = models.ImageField(blank=True)
+    similarity = models.FloatField()
+
+    def __str__(self):
+        return f"{self.tourist_spot.visit_area_name} - {self.image}"

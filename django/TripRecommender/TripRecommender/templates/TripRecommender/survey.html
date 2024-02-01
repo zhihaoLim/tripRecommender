@@ -58,16 +58,27 @@
 
         h1 {
             position: absolute; /* Set heading to absolute position */
-            top: 50%; /* Place the heading at the vertical center of the container */
+            top: 65%; /* Place the heading at the vertical center of the container */
             left: 50%; /* Place the heading at the horizontal center of the container */
             transform: translate(-50%, -50%); /* Center the heading precisely */
             text-align: center;
             color: white;
-            font-size: 80px;
+            font-size: 50px;
             font-weight: bold;
             z-index: 1; /* Ensure heading is above the image */
         }
 
+        /* 로고를 중앙에 위치시키기 위한 컨테이너 스타일 */
+        .logo-container {
+            background-color: #44c4f3; /* 로고 배경 색상 */
+            padding: 20px 0; /* 상하 패딩 */
+            text-align: center; /* 중앙 정렬 */
+        }
+
+        .logo-container img {
+            width: 700px; /* 로고 이미지 너비, 필요에 따라 조정 */
+            height: auto; /* 이미지 비율 유지 */
+        }
 
     </style>
 </head>
@@ -76,12 +87,19 @@
         <a class="active" href="{% url 'triprecommender:survey'%}">Home</a>
         <a href="#about" class="split">Help</a>
     </div>
-<img id="header-image" src="{% static 'head_image_1.jpg' %}" alt="Header Image">
-        <h1>나에게 알맞는 제주도 여행지 추천!!!</h1>
 
+<!-- 로고 컨테이너 추가 -->
+<div class="logo-container">
+    <img src="{% static 'logo.png' %}" alt="Logo">
+    <h1>당신만을 위한 제주 여행 추천 서비스</h1>
+
+</div>
+
+<img id="header-image" src="{% static 'head_image.jpg' %}" alt="Header Image">
 <div class="container" style="background-color:#fecda2;">
-
 <form method="post" action="{% url 'triprecommender:survey' %}">
+    <h2 style='font-weight:bold; font-size:40px; text-align:center;'>나의 여행 성향 테스트</h2>
+
     {% csrf_token %}
 
     <br>
