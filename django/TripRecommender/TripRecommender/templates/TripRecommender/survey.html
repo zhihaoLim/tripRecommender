@@ -1,0 +1,706 @@
+{% load static %}
+
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/survey.css' %}">
+    <title>여행 경로 추천 설문조사</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fecda2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: grid;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+
+
+        input[type="submit"] {
+            width: 20%;
+            padding: 15px 30px;
+            margin: 0 auto;            
+            background-color: #44c4f3;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        
+        <!--백헌하-->
+        .question-container[style="display: none;"] {
+            display: none !important;
+            text-align: center;
+        }
+
+        #header-image {
+            width: 100%; /* Make the image span the full width of the container */
+        }
+
+        h1 {
+            position: absolute; /* Set heading to absolute position */
+            top: 65%; /* Place the heading at the vertical center of the container */
+            left: 50%; /* Place the heading at the horizontal center of the container */
+            transform: translate(-50%, -50%); /* Center the heading precisely */
+            text-align: center;
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            z-index: 1; /* Ensure heading is above the image */
+        }
+
+        /* 로고를 중앙에 위치시키기 위한 컨테이너 스타일 */
+        .logo-container {
+            background-color: #44c4f3; /* 로고 배경 색상 */
+            padding: 20px 0; /* 상하 패딩 */
+            text-align: center; /* 중앙 정렬 */
+        }
+
+        .logo-container img {
+            width: 700px; /* 로고 이미지 너비, 필요에 따라 조정 */
+            height: auto; /* 이미지 비율 유지 */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="{% url 'triprecommender:survey'%}">Home</a>
+        <a href="#about" class="split">Help</a>
+    </div>
+
+<!-- 로고 컨테이너 추가 -->
+<div class="logo-container">
+    <img src="{% static 'logo.png' %}" alt="Logo">
+    <h1>당신만을 위한 제주 여행 추천 서비스</h1>
+
+</div>
+
+<img id="header-image" src="{% static 'head_image.jpg' %}" alt="Header Image">
+<div class="container" style="background-color:#fecda2;">
+<form method="post" action="{% url 'triprecommender:survey' %}">
+    <h2 style='font-weight:bold; font-size:40px; text-align:center;'>나의 여행 성향 테스트</h2>
+
+    {% csrf_token %}
+
+    <br>
+    <div class="question-container">
+        <h2 class='question_head'>성별을 선택해주세요</h2>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="gender" value="남">
+                <span class="button button-8">남</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="gender" value="여">
+                <span class="button button-8">여</span>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <h2 class='question_head'>연령대를 선택해주세요</h2>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="age" value="1">
+                <span class="button button-9">20대</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="age" value="2">
+                <span class="button button-9">30대</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="age" value="3">
+                <span class="button button-9">40대</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="age" value="4">
+                <span class="button button-9">50대</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="age" value="5">
+                <span class="button button-9">60대 이상</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <h2 class='question_head'>여행경비</h2>
+        <p class="question"> 모든 날의 1인당 여행경비 총합</p>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="payment" value="0">
+                <span class="button button-8">60만원이하</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="payment" value="1">
+                <span class="button button-8">60만원이상</span>
+        </div>
+    </div>
+    <br>
+    <div class="question-container">
+        <h2 class = 'question_head'>여행의 중요요소</h2>
+        <p class="question">이번 여행에서 가장 중요한 한 가지는?</p>
+        <div class="response-options">
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="1">
+                    <span class="button button-8">쇼핑</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="2">
+                    <span class="button button-8">테마파크</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="3">
+                    <span class="button button-8">역사 유적지</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="4">
+                    <span class="button button-8">시티 투어</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="5">
+                    <span class="button button-8">레포츠 활동</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="6">
+                    <span class="button button-8">예술 관람</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="7">
+                    <span class="button button-8">유흥과 오락</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="8">
+                    <span class="button button-8">캠핑</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="9">
+                    <span class="button button-8">축제와 행사</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="10">
+                    <span class="button button-8">스파와 온천</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="12">
+                    <span class="button button-8">드라마 촬영지</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="22">
+                    <span class="button button-8">SNS 인생샷</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="23">
+                    <span class="button button-8">호캉스</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="25">
+                    <span class="button button-8">반려동물 동반</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_mission" value="28">
+                    <span class="button button-8">등반</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="question-container">
+        <h2 class = 'question_head'>여행스타일</h2>
+        <p class="question">1. 아름답고 조용한 자연 vs 맛집 많고 번화한 도시</p>
+        <div class="response-options">
+            <label class="edge-label">자연</label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_1" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">도시</label>
+        </div>
+    </div>
+
+    <!--백헌하-->
+    <div class="question-container" style="display: none;">
+        <p class="question">숙박 스타일(삭제 예정)</p>
+        <div class="response-options">
+            <label class="edge-label">숙박</label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="2" checked>
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_2" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">당일</label>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <p class="question">2. 가본 적 없는 새로운 곳 vs 내게 익숙한 바로 그 곳</p>
+        <div class="response-options">
+            <label class="edge-label">새로운</label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_3" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">익숙한</label>
+        </div>
+    </div>
+
+    <!--백헌하-->
+    <div class="question-container" style="display: none;">
+        <p class="question">숙박 스타일(삭제 예정)</p>
+        <div class="response-options">
+            <label class="edge-label">저렴한</label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="3" checked>
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_4" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">편안한</label>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <p class="question">3. 편안한 휴식을 주는 여행 vs 다양한 체험이 있는 여행</p>
+        <div class="response-options">
+            <label class="edge-label">휴식</label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_5" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">체험</label>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <p class="question">4. 잘 알려지지 않은 곳으로 vs 잘 알려진 핫 스페이스로</p>
+        <div class="response-options">
+            <label class="edge-label">모르는</label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_6" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">알려진</label>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <p class="question">5. 계획을 따르는 만족스런 여행 vs 상황을 따르는 자유로운 여행</p>
+        <div class="response-options">
+            <label class="edge-label">계획</label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_7" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">상황</label>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <p class="question">6. 사진보다는 경험이 우선 vs 사진을 남기는 것이 우선</p>
+        <div class="response-options">
+            <label class="edge-label">경험</label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="1">
+                <span class="button button-1"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="2">
+                <span class="button button-2"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="3">
+                <span class="button button-3"></span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="4">
+                <span class="button button-4"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="5">
+                <span class="button button-5"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="6">
+                <span class="button button-6"> </span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_style_8" value="7">
+                <span class="button button-7"> </span>
+            </label>
+            <label class="edge-label">사진</label>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <h2 class = 'question_head'>여행 동기</h2>
+        <div class="response-options">
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_motive" value="1">
+                    <span class="button button-8">일상 탈출</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_motive" value="2">
+                    <span class="button button-8">휴식</span>
+                </label>
+            </div>
+                <div class="option-row">
+                    <label class="option">
+                        <input type="radio" name="travel_motive" value="3">
+                        <span class="button button-8">우정 여행</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="travel_motive" value="4">
+                        <span class="button button-8">자아 찾기</span>
+                    </label>
+                </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_motive" value="5">
+                    <span class="button button-8">SNS</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_motive" value="6">
+                    <span class="button button-8">건강 증진</span>
+                </label>
+            </div>
+            <div class="option-row">
+                <label class="option">
+                    <input type="radio" name="travel_motive" value="7">
+                    <span class="button button-8">새로운 경험</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="travel_motive" value="8">
+                    <span class="button button-8">교육</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <h2 class = 'question_head'>여행 빈도</h2>
+        <p class="question">지난 1년간 여행을 간 횟수</p>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="travel_num" value="1">
+                <span class="button button-8">1회</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_num" value="2">
+                <span class="button button-8">2회</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_num" value="3">
+                <span class="button button-8">3회</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_num" value="4">
+                <span class="button button-8">4회</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_num" value="5">
+                <span class="button button-8">5회 이상</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="question-container">
+        <h2 class = 'question_head'>동반자 수</h2>
+        <div class="response-options">
+            <label class="option">
+                <input type="radio" name="travel_companions_num" value="1">
+                <span class="button button-8">1명</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_companions_num" value="2">
+                <span class="button button-8">2명</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_companions_num" value="3">
+                <span class="button button-8">3명</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_companions_num" value="4">
+                <span class="button button-8">4명</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="travel_companions_num" value="5">
+                <span class="button button-8">5명 이상</span>
+            </label>
+        </div>
+    </div>
+    <br>
+    <br>
+    <input type="submit" class="bold-button" value="여행지 및 경로 추천">
+</form>
+<script src="{% static 'js/survey.js' %}"></script>
+
+<!--백헌하-->
+<script>
+    document.querySelector("form").addEventListener("submit", function (event) {
+        // 폼 제출 시 실행되는 함수
+        console.log('working');
+
+        // 각각의 질문에 대한 선택사항들을 확인
+        var isValid = validateForm();
+
+        // 모든 항목이 선택되었는지 확인
+        if (!isValid) {
+            // 선택되지 않은 항목들의 이름을 가져옴
+            const notselected = getNotSelectedOptions();
+            
+            // 경고창을 띄우고 폼 제출을 막음
+            alert("선택되지 않은 항목이 있습니다. 다음 항목을 선택해주세요: \n" + notselected.join(', '));
+            event.preventDefault();
+        }
+    });
+
+    function validateForm() {
+        const name_lst = ['gender','age','payment','travel_mission','travel_style_1',
+        'travel_style_3','travel_style_5','travel_style_6','travel_style_7','travel_style_8',
+        'travel_motive','travel_num','travel_companions_num'];
+    
+        // 선택 옵션들을 담을 객체
+        const optionsMap = {};
+    
+        // 각 질문에 대해 선택된 옵션들을 optionsMap에 저장
+        for (const name_ of name_lst) {
+            optionsMap[name_] = document.getElementsByName(name_);
+        }
+    
+        // 모든 옵션들이 비어 있는지 확인
+        const isAnyOptionEmpty = Object.entries(optionsMap).some(([name, options]) => {
+            // 선택된 옵션이 없으면 true 반환
+            return !Array.from(options).some(option => option.checked);
+        });
+    
+        if (isAnyOptionEmpty) {
+            // 선택되지 않은 옵션이 있다면 여기에 처리 로직을 추가
+            console.log("모든 질문에 대해 선택해주세요.");
+            return false;  // 폼 제출을 막음
+        }
+    
+        // 선택된 옵션이 모두 있으면 폼을 제출
+        console.log("폼이 유효합니다. 제출할 수 있습니다.");
+        return true;
+    }
+
+    function getNotSelectedOptions() {
+        const notselected = [];
+
+        const name_lst = ['gender','age','payment','travel_mission','travel_style_1',
+        'travel_style_3','travel_style_5','travel_style_6','travel_style_7','travel_style_8',
+        'travel_motive','travel_num','travel_companions_num'];
+        const kor_name_lst = ['성별','나이','여행경비','여행 중요요소','여행스타일 1','여행스타일 2','여행스타일 3','여행스타일 4',
+        '여행스타일 5','여행스타일 6','여행 동기','여행빈도','동반자 수']
+        var i = 0;
+        // 선택되지 않은 옵션들을 확인
+        for (const name_ of name_lst) {
+            const options = document.getElementsByName(name_);
+            if (!Array.from(options).some(option => option.checked)) {
+                notselected.push(kor_name_lst[i]);
+            }
+        i = i+1;
+        }
+
+        return notselected;
+    }
+</script>
+
+</body>
+</html>
+
+
