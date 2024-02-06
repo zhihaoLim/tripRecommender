@@ -1,4 +1,4 @@
-## AI 기반 개인화 여행 추천 서비스 <JEJ U>
+## AI 기반 개인화 여행 추천 서비스 "JEJ U"
 
 ![logo](https://github.com/TripRecommender-HH/tripRecommender/assets/155603235/fe774a44-38c6-49ce-ba41-d58f7528060d)
 
