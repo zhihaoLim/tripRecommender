@@ -1,4 +1,6 @@
-# 개인의 성향에 따른 제주도 여행지 추천 사이트
+# AI 기반 개인화 여행 추천 서비스 <JEJ U>
+
+![logo](https://github.com/TripRecommender-HH/tripRecommender/assets/155603235/fe774a44-38c6-49ce-ba41-d58f7528060d)
 
 ## 프로젝트소개
 model파일에 있는 catboost모델, random forest모델을 이용하여 개인의 성향에 따른 제주도의 여행지 추천을 한다. 그리고 추천된 여행지의 사진과 비슷한 다른 장소를 deep learning을 이용하여 추가 추천하여 이러한 여행지 정보들을 지도에 표시해주고, 여행스케줄을 만드는데 도움을 주는 웹페이즈를 만들었다.
